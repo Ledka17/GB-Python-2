@@ -1,10 +1,20 @@
 # Программа клиента
 
 from socket import *
-import time
+import time, sys
+
+try: #Получаем адрес
+    addr = sys.argv[1]
+except:
+    addr = 'localhost'
+
+try: #Получаем номер порта
+    port = int(sys.argv[2])
+except:
+    port = 7777
 
 s = socket(AF_INET, SOCK_STREAM)  # Создать сокет TCP
-s.connect(('localhost', 7777))   # Соединиться с сервером
+s.connect((addr, port))   # Соединиться с сервером
 presence_msg = {
         "action": "presence",
         "time": int(time.time()),
