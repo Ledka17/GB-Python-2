@@ -1,10 +1,20 @@
 # Программа сервера
 
 from socket import *
-import time
+import time, sys
 
+try: #Получаем адрес
+    addr = sys.argv[1]
+except:
+    addr = ''
+
+try: #Получаем номер порта
+    port = int(sys.argv[2])
+except:
+    port = 7777
+    
 s = socket(AF_INET, SOCK_STREAM)  # Создает сокет TCP
-s.bind(('', 7777))                # Присваивает порт 7777
+s.bind((addr, port))                # Привязывает сокет к IP-адресу и порту машины
 s.listen(3)                       # Переходит в режим ожидания запросов (не более 3)
 
 while True:
@@ -17,4 +27,4 @@ while True:
         "alert": "OK"
     }#формирует ответ клиенту
     client.send(msg.encode('utf-8')) #отправляет ответ клиенту
-    client.close() #закрывает соединение 
+    client.close() #закрывает соединение                                
