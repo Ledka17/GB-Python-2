@@ -3,16 +3,19 @@
 from socket import *
 import time, sys
 
-try: #Получаем адрес
-    addr = sys.argv[1]
-except:
-    addr = ''
+def get_addr_port():
+    try: #Получаем адрес
+        addr = sys.argv[1]
+    except:
+        addr = ''
 
-try: #Получаем номер порта
-    port = int(sys.argv[2])
-except:
-    port = 7777
-    
+    try: #Получаем номер порта
+        port = int(sys.argv[2])
+    except:
+        port = 7777
+    return [addr, port]
+
+addr, port = get_addr_port()    
 s = socket(AF_INET, SOCK_STREAM)  # Создает сокет TCP
 s.bind((addr, port))                # Привязывает сокет к IP-адресу и порту машины
 s.listen(3)                       # Переходит в режим ожидания запросов (не более 3)
